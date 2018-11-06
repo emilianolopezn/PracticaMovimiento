@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PracticaMovimiento"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        >
     <Canvas Name="miCanvas" KeyDown="miCanvas_KeyDown" Focusable="True">
         <Image Name="imgRana" Source="rana.png" Width="90" Height="90" Stretch="UniformToFill" Canvas.Left="327" Canvas.Top="297"></Image>
+        <Image Name="imgCarro" Source="carro.png" Width="100" Height="60" Stretch="Uniform" Canvas.Left="642" Canvas.Top="114" />
     </Canvas>
 </Window>
