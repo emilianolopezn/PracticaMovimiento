@@ -85,6 +85,24 @@ namespace PracticaMovimiento
                     Canvas.GetTop(imgRana);
                 Canvas.SetTop(imgRana, topRanaActual - 15);
             }
+            if (e.Key == Key.Down)
+            {
+                double topRanaActual =
+                    Canvas.GetTop(imgRana);
+                Canvas.SetTop(imgRana, topRanaActual + 15);
+            }
+            if (e.Key == Key.Left)
+            {
+                double leftRanaActual =
+                    Canvas.GetLeft(imgRana);
+                Canvas.SetLeft(imgRana, leftRanaActual - 15);
+            }
+            if (e.Key == Key.Right)
+            {
+                double leftRanaActual =
+                    Canvas.GetLeft(imgRana);
+                Canvas.SetLeft(imgRana, leftRanaActual + 15);
+            }
         }
 
        
