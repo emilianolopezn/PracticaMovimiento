@@ -28,6 +28,9 @@ namespace PracticaMovimiento
         Stopwatch stopwatch;
         TimeSpan tiempoAnterior;
 
+        enum EstadoJuego { Gameplay, Gameover };
+        EstadoJuego estadoActual = EstadoJuego.Gameplay;
+
         public MainWindow()
         {
             
@@ -40,16 +43,19 @@ namespace PracticaMovimiento
 
             //1.- Establecer instrucciones
             ThreadStart threadStart =
-                new ThreadStart(moverEnemigos);
+                new ThreadStart(actualizar);
             //2.- Inicializar el Thread
             Thread threadMoverEnemigos =
                 new Thread(threadStart);
             //3.- Ejecutar el Thread
             threadMoverEnemigos.Start();
+
+            /*imgRana.RenderTransform =
+                new RotateTransform(90);*/
             
         }
 
-        void moverEnemigos()
+        void actualizar()
         {
             while (true)
             {
@@ -60,14 +66,77 @@ namespace PracticaMovimiento
                     var deltaTime =
                         tiempoActual - tiempoAnterior;
 
-                    double leftCarroActual =
-                        Canvas.GetLeft(imgCarro);
-                    Canvas.SetLeft(
-                        imgCarro, leftCarroActual - (200 * deltaTime.TotalSeconds) );
-                    if(Canvas.GetLeft(imgCarro) <= -100)
+                    if (estadoActual == EstadoJuego.Gameplay)
                     {
-                        Canvas.SetLeft(imgCarro, 800);
+                        double leftCarroActual =
+                        Canvas.GetLeft(imgCarro);
+                        Canvas.SetLeft(
+                            imgCarro, leftCarroActual - (20 * deltaTime.TotalSeconds));
+                        if (Canvas.GetLeft(imgCarro) <= -100)
+                        {
+                            Canvas.SetLeft(imgCarro, 800);
+                        }
+
+
+                        //Intersección en X
+                        double xCarro =
+                            Canvas.GetLeft(imgCarro);
+                        double xRana =
+                            Canvas.GetLeft(imgRana);
+                        if (xRana + imgRana.Width >= xCarro &&
+                            xRana <= xCarro + imgCarro.Width)
+                        {
+                            lblInterseccionX.Text =
+                            "SI HAY INTERSECCION EN X!!!";
+                        }
+                        else
+                        {
+                            lblInterseccionX.Text =
+                            "No hay interseccion en X";
+                        }
+                        double yCarro =
+                            Canvas.GetTop(imgCarro);
+                        double yRana =
+                            Canvas.GetTop(imgRana);
+                        if (yRana + imgRana.Height >= yCarro &&
+                            yRana <= yCarro + imgCarro.Height)
+                        {
+                            lblInterseccionY.Text =
+                                "SI HAY INTERSECCION EN Y!!!";
+                        }
+                        else
+                        {
+                            lblInterseccionY.Text =
+                                "No hay interseccion en Y";
+                        }
+
+                        if (xRana + imgRana.Width >= xCarro &&
+                            xRana <= xCarro + imgCarro.Width &&
+                            yRana + imgRana.Height >= yCarro &&
+                            yRana <= yCarro + imgCarro.Height)
+                        {
+                            lblColision.Text =
+                                "HAY COLISION!!!";
+                            estadoActual = EstadoJuego.Gameover;
+                            miCanvas.Visibility = Visibility.Collapsed;
+                            canvasGameOver.Visibility =
+                                Visibility.Visible;
+                        }
+                        else
+                        {
+                            lblColision.Text =
+                                "No hay colision";
+                        }
+                    } else if (estadoActual == EstadoJuego.Gameover)
+                    {
+
                     }
+
+                    
+
+                    
+
+
                     tiempoAnterior = tiempoActual;
                    
 
@@ -79,29 +148,32 @@ namespace PracticaMovimiento
 
         private void miCanvas_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Up)
+            if (estadoActual == EstadoJuego.Gameplay)
             {
-                double topRanaActual =
-                    Canvas.GetTop(imgRana);
-                Canvas.SetTop(imgRana, topRanaActual - 15);
-            }
-            if (e.Key == Key.Down)
-            {
-                double topRanaActual =
-                    Canvas.GetTop(imgRana);
-                Canvas.SetTop(imgRana, topRanaActual + 15);
-            }
-            if (e.Key == Key.Left)
-            {
-                double leftRanaActual =
-                    Canvas.GetLeft(imgRana);
-                Canvas.SetLeft(imgRana, leftRanaActual - 15);
-            }
-            if (e.Key == Key.Right)
-            {
-                double leftRanaActual =
-                    Canvas.GetLeft(imgRana);
-                Canvas.SetLeft(imgRana, leftRanaActual + 15);
+                if (e.Key == Key.Up)
+                {
+                    double topRanaActual =
+                        Canvas.GetTop(imgRana);
+                    Canvas.SetTop(imgRana, topRanaActual - 15);
+                }
+                if (e.Key == Key.Down)
+                {
+                    double topRanaActual =
+                        Canvas.GetTop(imgRana);
+                    Canvas.SetTop(imgRana, topRanaActual + 15);
+                }
+                if (e.Key == Key.Left)
+                {
+                    double leftRanaActual =
+                        Canvas.GetLeft(imgRana);
+                    Canvas.SetLeft(imgRana, leftRanaActual - 15);
+                }
+                if (e.Key == Key.Right)
+                {
+                    double leftRanaActual =
+                        Canvas.GetLeft(imgRana);
+                    Canvas.SetLeft(imgRana, leftRanaActual + 15);
+                }
             }
         }
 
