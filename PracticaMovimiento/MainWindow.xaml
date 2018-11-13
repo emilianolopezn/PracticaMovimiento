@@ -8,9 +8,9 @@
         Title="MainWindow" Height="450" Width="800"
         >
     <Canvas>
-        <Canvas Visibility="Visible" Name="miCanvas" KeyDown="miCanvas_KeyDown" Focusable="True">
-            <Image Name="imgRana" Source="rana.png" Width="90" Height="90" Stretch="UniformToFill" Canvas.Left="327" Canvas.Top="297" RenderTransformOrigin="0.5,0.5"/>
-            <Image Name="imgCarro" Source="carro.png" Width="100" Height="60" Stretch="Uniform" Canvas.Left="642" Canvas.Top="114" />
+        <Canvas Visibility="Visible" Name="miCanvas" KeyDown="miCanvas_KeyDown" KeyUp="miCanvas_KeyUp" Focusable="True" Background="White">
+            <Image Name="imgRana" Source="rana.png" Width="90" Height="90" Stretch="Fill" Canvas.Left="327" Canvas.Top="297" RenderTransformOrigin="0.5,0.5"/>
+            <Image Name="imgCarro" Source="carro.png" Width="100" Height="60" Stretch="Fill" Canvas.Left="642" Canvas.Top="114" />
             <TextBlock x:Name="lblInterseccionX" Canvas.Left="10" TextWrapping="Wrap" Text="No hay intersección en X" Canvas.Top="10"/>
             <TextBlock x:Name="lblColision" Canvas.Left="10" TextWrapping="Wrap" Text="No hay colisión" Canvas.Top="52"/>
             <TextBlock x:Name="lblInterseccionY" Canvas.Left="10" TextWrapping="Wrap" Text="No hay intersección en Y" Canvas.Top="31"/>
